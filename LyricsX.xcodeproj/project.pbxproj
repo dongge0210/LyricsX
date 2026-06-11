@@ -685,7 +685,7 @@
 			};
 			buildConfigurationList = BB4141A51E458BA800A51775 /* Build configuration list for PBXProject "LyricsX" */;
 			compatibilityVersion = "Xcode 12.0";
-			developmentRegion = en;
+			developmentRegion = "zh-Hans";
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -965,6 +965,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2926;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 8VXZS5M92N;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = LyricsXWidget/Info.plist;
@@ -975,7 +976,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.9.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.JH.LyricsX.LyricsWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dongge0210.LyricsX.LyricsWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
@@ -991,6 +992,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2926;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 8VXZS5M92N;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = LyricsXWidget/Info.plist;
@@ -1001,7 +1003,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.9.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.JH.LyricsX.LyricsWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.dongge0210.LyricsX.LyricsWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
@@ -1147,6 +1149,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 8VXZS5M92N;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1159,7 +1162,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.JH.LyricsX;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.dongge0210.LyricsX;
 				PRODUCT_NAME = "$(TARGET_NAME)-Debug";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				REGISTER_APP_GROUPS = YES;
@@ -1174,6 +1177,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 8VXZS5M92N;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1186,7 +1190,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.JH.LyricsX;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.dongge0210.LyricsX;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				REGISTER_APP_GROUPS = YES;
 			};
@@ -1199,6 +1203,7 @@
 				CODE_SIGN_ENTITLEMENTS = LyricsXHelper/LyricsXHelper.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 8VXZS5M92N;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = LyricsXHelper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1206,7 +1211,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.JH.LyricsXHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.dongge0210.LyricsXHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
@@ -1220,6 +1225,7 @@
 				CODE_SIGN_ENTITLEMENTS = LyricsXHelper/LyricsXHelper.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 8VXZS5M92N;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = LyricsXHelper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1227,7 +1233,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.JH.LyricsXHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dongge0210.LyricsXHelper;
 				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
 			};

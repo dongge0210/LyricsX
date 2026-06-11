@@ -1,16 +1,9 @@
 {
-  "sourceLanguage" : "en",
+  "sourceLanguage" : "zh-Hans",
   "strings" : {
     "CFBundleName" : {
       "comment" : "Bundle name",
-      "extractionState" : "extracted_with_value",
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "LyricsX"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -43,7 +36,6 @@
     },
     "NSAppleEventsUsageDescription" : {
       "comment" : "Privacy - AppleEvents Sending Usage Description",
-      "extractionState" : "extracted_with_value",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -55,12 +47,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "LyricsX muss wissen, welches Lied aktuell gespielt wird, um korrekte Liedtexte anzeigen zu können."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "LyricsX needs to know what song you're currently playing, to show lyrics accordingly."
           }
         },
         "es" : {
@@ -151,14 +137,7 @@
     },
     "NSAppleMusicUsageDescription" : {
       "comment" : "Privacy - Media Library Usage Description",
-      "extractionState" : "extracted_with_value",
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "LyricsX uses Apple Music to look up the original title and artist of a track so it can find lyrics for localized names."
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -175,14 +154,7 @@
     },
     "NSHumanReadableCopyright" : {
       "comment" : "Copyright (human-readable)",
-      "extractionState" : "extracted_with_value",
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Copyright © 2017-2020 Xander Deng. All rights reserved."
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",

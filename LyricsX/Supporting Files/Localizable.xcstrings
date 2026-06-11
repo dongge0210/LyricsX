@@ -1,5 +1,5 @@
 {
-  "sourceLanguage" : "en",
+  "sourceLanguage" : "zh-Hans",
   "strings" : {
     "-%@" : {
       "localizations" : {
@@ -406,22 +406,6 @@
         }
       }
     },
-    "No Lyrics" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "没有歌词"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "沒有歌詞"
-          }
-        }
-      }
-    },
     "No active NowPlaying source" : {
       "comment" : "Title for the alert shown when LyricsX cannot find a currently playing app while resolving its bundle id.",
       "localizations" : {
@@ -435,6 +419,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "沒有正在播放的應用程式"
+          }
+        }
+      }
+    },
+    "No Lyrics" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有歌词"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有歌詞"
           }
         }
       }
