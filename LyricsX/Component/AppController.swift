@@ -643,8 +643,16 @@ final class AppController: NSObject {
 }
 
 extension AppController {
-    func importLyrics(_ lyricsString: String) throws {
-        guard let lrc = Lyrics(lyricsString) else {
+    func importLyrics(_ lyricsString: String, filePath: String? = nil) throws {
+        let isTTML: Bool = {
+            if let path = filePath {
+                return (path as NSString).pathExtension.lowercased() == "ttml"
+            }
+            // Paste / plain text: autodetect by TTML root element.
+            return lyricsString.trimmingCharacters(in: .whitespacesAndNewlines).hasPrefix("<tt")
+        }()
+
+        guard let lrc = isTTML ? Lyrics(ttmlContent: lyricsString) : Lyrics(lyricsString) else {
             let errorInfo = [
                 NSLocalizedDescriptionKey: "Invalid lyric file",
                 NSLocalizedRecoverySuggestionErrorKey: "Please try another one.",
