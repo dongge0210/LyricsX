@@ -188,13 +188,23 @@ private final class TTMLParser: NSObject, XMLParserDelegate {
         let trimmed = lineText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
 
+        // Leading whitespace inside <p> (e.g. XML indentation before the first
+        // <span>) shifts all tag indices. Subtract it so they match the trimmed
+        // content string that the renderer uses.
+        let leadingOffset = lineText.prefix(while: { $0.isWhitespace || $0.isNewline }).count
+
         let duration = max(0, lineEnd - lineBegin)
 
         let resolvedTags: [LyricsLine.Attachments.InlineTimeTag.Tag]
         if timetagTags.isEmpty {
             resolvedTags = [.init(index: 0, time: 0)]
         } else {
-            var pruned = timetagTags
+            var pruned = timetagTags.map {
+                LyricsLine.Attachments.InlineTimeTag.Tag(
+                    index: max(0, $0.index - leadingOffset),
+                    time: $0.time
+                )
+            }
             while let last = pruned.last, last.index >= trimmed.count {
                 pruned.removeLast()
             }
