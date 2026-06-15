@@ -76,10 +76,9 @@ class PreferenceLabViewController: PreferenceViewController {
         label.alignment = .right
         let labelRowIndex = grid.numberOfRows
         grid.addRow(with: [label, NSView()])
-        if let row = grid.row(at: labelRowIndex) {
-            row.yPlacement = .center
-            row.height = 22
-        }
+        let labelRow = grid.row(at: labelRowIndex)
+        labelRow.yPlacement = .center
+        labelRow.height = 22
 
         // Token field row: single cell spanning both columns
         let field = NSTextField()
@@ -99,10 +98,9 @@ class PreferenceLabViewController: PreferenceViewController {
         grid.addRow(with: [field, NSView()])
         grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2),
                         verticalRange: NSRange(location: fieldRowIndex, length: 1))
-        if let row = grid.row(at: fieldRowIndex) {
-            row.yPlacement = .center
-            row.height = 24
-        }
+        let fieldRow = grid.row(at: fieldRowIndex)
+        fieldRow.yPlacement = .center
+        fieldRow.height = 24
         appleMusicMediaUserTokenField = field
     }
 
