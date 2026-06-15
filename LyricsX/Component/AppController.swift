@@ -6,6 +6,7 @@ import MusicPlayer
 import LyricsXFoundation
 import WidgetKit
 import LyricsXWidgetShared
+import LyricsServiceAppleMusic
 
 @Loggable(subsystem: "com.JH.LyricsX.AppController", category: "AppController")
 final class AppController: NSObject {
@@ -90,7 +91,7 @@ final class AppController: NSObject {
         .map { (defaults[.appleMusicNameRecoveryEnabled], selectedPlayer.name) }
         .removeDuplicates(by: ==)
         .sink { [weak self] _ in
-            Task { @MainActor in self?.updateLyricsManager() }
+            Task { @MainActor in await self?.updateLyricsManager() }
         }
         .store(in: &cancelBag)
 
@@ -163,20 +164,32 @@ final class AppController: NSObject {
         currentTrackChanged()
 
         Task { @MainActor in
-            updateLyricsManager()
+            // Prime the Apple Music web session with the user's manually
+            // configured media-user-token (injected as a cookie before the
+            // page loads, so the web player's MusicKit treats the session
+            // as authenticated — no sign-in window needed).
+            if #available(macOS 12.0, *), let token = defaults[.appleMusicMediaUserToken], !token.isEmpty {
+                await AppleMusicWebSession.shared.configure(mediaUserToken: token)
+            }
+            await updateLyricsManager()
         }
     }
 
     @MainActor
-    func updateLyricsManager() {
+    func updateLyricsManager() async {
         let musixmatchToken = defaults[.musixmatchToken].flatMap { $0.isEmpty ? nil : $0 }
-        let providers: [LyricsProvider] = [
+        var providers: [LyricsProvider] = [
             LyricsProviders.Service.netease.create(),
             LyricsProviders.Service.qq.create(),
             LyricsProviders.Service.kugou.create(),
             LyricsProviders.Service.lrclib.create(),
             LyricsProviders.Service.musixmatch.create(.init(usertoken: musixmatchToken)),
         ]
+        if #available(macOS 12.0, *),
+           let token = defaults[.appleMusicMediaUserToken], !token.isEmpty,
+           (try? await AppleMusicWebSession.shared.isAuthorized()) == true {
+            providers.append(LyricsProviders.Service.appleMusic.create())
+        }
         // Route B: for Apple Music tracks, a search plugin recovers the
         // native-script name via the Apple Music catalog so the providers
         // can match it. The plugin runs upstream of the providers — it

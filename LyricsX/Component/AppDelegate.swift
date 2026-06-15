@@ -1,7 +1,6 @@
 import AppKit
 import GenericID
 import MASShortcut
-import MusicKit
 import MusicPlayer
 import Sparkle
 import Semver

@@ -73,7 +73,7 @@ let package = Package(
                 isEnabled: useLocalDependency
             ),
             remote: .package(
-                url: "https://github.com/MxIris-LyricsX-Project/LyricsKit",
+                url: "https://github.com/dongge0210/LyricsKit",
                 from: "1.8.0"
             )
         ),
@@ -98,7 +98,7 @@ let package = Package(
             name: "LyricsXFoundation",
             dependencies: [
                 .product(name: "LyricsKit", package: "LyricsKit"),
-                .product(name: "LyricsKitAppleMusic", package: "LyricsKit"),
+                .product(name: "LyricsServiceAppleMusic", package: "LyricsKit"),
                 .product(name: "MusicPlayer", package: "MusicPlayer"),
                 .product(name: "FoundationToolbox", package: "FrameworkToolbox"),
             ]

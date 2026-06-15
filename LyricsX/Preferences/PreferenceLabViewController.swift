@@ -1,6 +1,6 @@
 import AppKit
 import LyricsXFoundation
-import MusicKit
+import LyricsServiceAppleMusic
 
 class PreferenceLabViewController: PreferenceViewController {
     @IBOutlet var enableTouchBarLyricsButton: NSButton!
@@ -12,6 +12,9 @@ class PreferenceLabViewController: PreferenceViewController {
     @IBOutlet var appleMusicNameRecoveryButton: NSButton!
 
     @IBOutlet var artworkSimilarityBoostButton: NSButton!
+
+    /// Created programmatically — not wired from the storyboard.
+    private var appleMusicMediaUserTokenField: NSTextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +33,9 @@ class PreferenceLabViewController: PreferenceViewController {
             )
         }
 
-        // Turning this on requires MusicAuthorization, so the button is
-        // driven by an action instead of a value binding: the action gates
-        // writes on the actual authorization result and rolls the state back
-        // if the user denies access.
-        appleMusicNameRecoveryButton.state = defaults[.appleMusicNameRecoveryEnabled] ? .on : .off
+        // Name recovery uses the web session (not MusicKit entitlements), so
+        // no MusicAuthorization prompt is needed.
+        appleMusicNameRecoveryButton.bind(.value, withDefaultName: .appleMusicNameRecoveryEnabled)
         if #available(macOS 12, *) {
             // Available — leave the checkbox interactive.
         } else {
@@ -50,7 +51,42 @@ class PreferenceLabViewController: PreferenceViewController {
         } else {
             musixmatchTokenField.stringValue = ""
         }
+
+        setupAppleMusicTokenField()
     }
+
+    // MARK: - Apple Music media-user-token (programmatic)
+
+    private func setupAppleMusicTokenField() {
+        let gridHint = NSLocalizedString(
+            "Apple Music Token (media-user-token):",
+            comment: "Label for the Apple Music media-user-token field in Lab preferences."
+        )
+
+        // Find the NSGridView in the view hierarchy so we can append a row.
+        guard let grid = view.subviews.lazy.compactMap({ $0 as? NSGridView }).first else {
+            return
+        }
+
+        let label = NSTextField(labelWithString: gridHint)
+        let field = NSTextField()
+        field.placeholderString = NSLocalizedString(
+            "Paste your media-user-token",
+            comment: "Placeholder for Apple Music token field."
+        )
+        field.bezelStyle = .roundedBezel
+        field.target = self
+        field.action = #selector(appleMusicMediaUserTokenChanged(_:))
+
+        if let token = defaults[.appleMusicMediaUserToken] {
+            field.stringValue = token
+        }
+
+        grid.addRow(with: [label, field])
+        appleMusicMediaUserTokenField = field
+    }
+
+    // MARK: - Musixmatch token
 
     @IBAction func musixmatchTokenChanged(_ sender: NSTextField) {
         let value = sender.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -61,7 +97,33 @@ class PreferenceLabViewController: PreferenceViewController {
         }
 
         // Update lyrics manager when token changes
-        AppController.shared.updateLyricsManager()
+        Task { await AppController.shared.updateLyricsManager() }
+    }
+
+    // MARK: - Apple Music media-user-token
+
+    /// The user pastes their `media-user-token` (obtained from Safari /
+    /// Apple Music cookies). Saving it reconfigures the web session so
+    /// MusicKit on the background page picks up the injected cookie.
+    @IBAction func appleMusicMediaUserTokenChanged(_ sender: NSTextField) {
+        let value = sender.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+        if value.isEmpty {
+            defaults.remove(.appleMusicMediaUserToken)
+            if #available(macOS 12.0, *) {
+                Task { @MainActor in
+                    await AppleMusicWebSession.shared.clearToken()
+                    await AppController.shared.updateLyricsManager()
+                }
+            }
+        } else {
+            defaults[.appleMusicMediaUserToken] = value
+            if #available(macOS 12.0, *) {
+                Task { @MainActor in
+                    await AppleMusicWebSession.shared.configure(mediaUserToken: value)
+                    await AppController.shared.updateLyricsManager()
+                }
+            }
+        }
     }
 
     @IBAction func customizeAllowsNowPlayingApplicationsAction(_ sender: NSButton) {
@@ -72,60 +134,5 @@ class PreferenceLabViewController: PreferenceViewController {
 
     @IBAction func customizeTouchBarAction(_ sender: NSButton) {
         NSApplication.shared.toggleTouchBarCustomizationPalette(sender)
-    }
-
-    @IBAction func appleMusicNameRecoveryButtonAction(_ sender: NSButton) {
-        let didTurnOn = sender.state == .on
-        guard didTurnOn else {
-            defaults[.appleMusicNameRecoveryEnabled] = false
-            return
-        }
-        guard #available(macOS 12, *) else {
-            sender.state = .off
-            defaults[.appleMusicNameRecoveryEnabled] = false
-            return
-        }
-        Task { @MainActor in
-            await self.enableAppleMusicNameRecoveryIfAuthorized(button: sender)
-        }
-    }
-
-    @available(macOS 12, *)
-    @MainActor
-    private func enableAppleMusicNameRecoveryIfAuthorized(button: NSButton) async {
-        let resolvedStatus: MusicAuthorization.Status
-        switch MusicAuthorization.currentStatus {
-        case .authorized:
-            resolvedStatus = .authorized
-        case .notDetermined:
-            resolvedStatus = await MusicAuthorization.request()
-        case .denied, .restricted:
-            resolvedStatus = MusicAuthorization.currentStatus
-        @unknown default:
-            resolvedStatus = .denied
-        }
-
-        if resolvedStatus == .authorized {
-            defaults[.appleMusicNameRecoveryEnabled] = true
-        } else {
-            button.state = .off
-            defaults[.appleMusicNameRecoveryEnabled] = false
-            presentAppleMusicAccessDeniedAlert()
-        }
-    }
-
-    @MainActor
-    private func presentAppleMusicAccessDeniedAlert() {
-        let alert = NSAlert()
-        alert.messageText = NSLocalizedString(
-            "Apple Music access is required to recover original song and artist names.",
-            comment: "Alert title when MusicAuthorization is denied or restricted for the MusicKit name recovery toggle."
-        )
-        alert.informativeText = NSLocalizedString(
-            "Grant access in System Settings > Privacy & Security > Media & Apple Music, then try again.",
-            comment: "Alert body directing the user to System Settings to grant Apple Music access."
-        )
-        alert.addButton(withTitle: NSLocalizedString("OK", comment: "Alert OK button"))
-        alert.runModal()
     }
 }

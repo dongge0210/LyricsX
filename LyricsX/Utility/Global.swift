@@ -177,6 +177,11 @@ extension UserDefaults.DefaultsKeys {
     // right version surfaces above same-title peers from other artists.
     static let artworkSimilarityBoostEnabled = Key<Bool>("ArtworkSimilarityBoostEnabled")
 
+    // Apple Music — media-user-token for amp-api (user pastes their own).
+    // When set, the web session injects it as a cookie so MusicKit in the
+    // background WKWebView treats it as an authenticated user.
+    static let appleMusicMediaUserToken = Key<String>("AppleMusicMediaUserToken")
+
     // Apple Music Route B — recover a track's native-script name via the
     // Apple Music catalog so the third-party providers can match it.
     static let appleMusicNameRecoveryEnabled = Key<Bool>("AppleMusicNameRecoveryEnabled")

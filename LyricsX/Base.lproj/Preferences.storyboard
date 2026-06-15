@@ -1702,9 +1702,7 @@
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
-                                            <connections>
-                                                <action selector="appleMusicNameRecoveryButtonAction:" target="JPs-hn-m7d" id="ANR-Ac-D01"/>
-                                            </connections>
+
                                         </button>
                                     </gridCell>
                                     <gridCell row="ART-Ro-W01" column="8ba-lF-U7s" id="ART-Ce-L01"/>
