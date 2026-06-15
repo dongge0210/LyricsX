@@ -214,7 +214,8 @@ final class AppController: NSObject {
         let resolvedPlaybackState = playbackState ?? MusicPlayers.Selected.shared.playbackState
         let trackDuration = selectedPlayer.currentTrack?.duration
         let playbackTime = resolvedPlaybackState.lyricsDisplayTime(trackDuration: trackDuration)
-        let (index, next) = lyrics[playbackTime + lyrics.adjustedTimeDelay]
+        let effectiveTime = playbackTime + lyrics.adjustedTimeDelay
+        let (index, next) = lyrics[effectiveTime]
         if currentLineIndex != index {
             currentLineIndex = index
         }
