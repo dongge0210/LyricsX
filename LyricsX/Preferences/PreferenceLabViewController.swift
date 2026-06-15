@@ -58,19 +58,30 @@ class PreferenceLabViewController: PreferenceViewController {
     // MARK: - Apple Music media-user-token (programmatic)
 
     private func setupAppleMusicTokenField() {
+        // Prevent duplicate rows when view is reloaded.
+        guard appleMusicMediaUserTokenField == nil else { return }
+
         let gridHint = NSLocalizedString(
             "Apple Music Token (media-user-token):",
             comment: "Label for the Apple Music media-user-token field in Lab preferences."
         )
 
-        // Find the NSGridView in the view hierarchy so we can append a row.
+        // Find the NSGridView in the view hierarchy.
         guard let grid = view.subviews.lazy.compactMap({ $0 as? NSGridView }).first else {
             return
         }
 
+        // Label row (matches grid's trailing-aligned column 1 style)
         let label = NSTextField(labelWithString: gridHint)
         label.alignment = .right
+        let labelRowIndex = grid.numberOfRows
+        grid.addRow(with: [label, NSView()])
+        if let row = grid.row(at: labelRowIndex) {
+            row.yPlacement = .center
+            row.height = 22
+        }
 
+        // Token field row: single cell spanning both columns
         let field = NSTextField()
         field.placeholderString = NSLocalizedString(
             "Paste your media-user-token",
@@ -84,11 +95,13 @@ class PreferenceLabViewController: PreferenceViewController {
             field.stringValue = token
         }
 
-        let rowIndex = grid.numberOfRows
-        grid.addRow(with: [label, field])
-        if let row = grid.row(at: rowIndex) {
+        let fieldRowIndex = grid.numberOfRows
+        grid.addRow(with: [field, NSView()])
+        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2),
+                        verticalRange: NSRange(location: fieldRowIndex, length: 1))
+        if let row = grid.row(at: fieldRowIndex) {
             row.yPlacement = .center
-            row.height = 30
+            row.height = 24
         }
         appleMusicMediaUserTokenField = field
     }
