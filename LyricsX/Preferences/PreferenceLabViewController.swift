@@ -69,6 +69,8 @@ class PreferenceLabViewController: PreferenceViewController {
         }
 
         let label = NSTextField(labelWithString: gridHint)
+        label.alignment = .right
+
         let field = NSTextField()
         field.placeholderString = NSLocalizedString(
             "Paste your media-user-token",
@@ -82,7 +84,12 @@ class PreferenceLabViewController: PreferenceViewController {
             field.stringValue = token
         }
 
+        let rowIndex = grid.numberOfRows
         grid.addRow(with: [label, field])
+        if let row = grid.row(at: rowIndex) {
+            row.yPlacement = .center
+            row.height = 30
+        }
         appleMusicMediaUserTokenField = field
     }
 

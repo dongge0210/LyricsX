@@ -36,6 +36,7 @@
     },
     "Apple Music access is required to recover original song and artist names." : {
       "comment" : "Alert title when MusicAuthorization is denied or restricted for the MusicKit name recovery toggle.",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -50,6 +51,9 @@
           }
         }
       }
+    },
+    "Apple Music Token (media-user-token):" : {
+      "comment" : "Label for the Apple Music media-user-token field in Lab preferences."
     },
     "Download" : {
       "comment" : "title of download button on the update alert. Download new version of the app.",
@@ -267,6 +271,7 @@
     },
     "Grant access in System Settings > Privacy & Security > Media & Apple Music, then try again." : {
       "comment" : "Alert body directing the user to System Settings to grant Apple Music access.",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -545,6 +550,9 @@
           }
         }
       }
+    },
+    "Paste your media-user-token" : {
+      "comment" : "Placeholder for Apple Music token field."
     },
     "Pause" : {
       "comment" : "Menu bar playback pause button",
