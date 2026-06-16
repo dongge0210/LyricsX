@@ -6,7 +6,7 @@ import MusicPlayer
 import LyricsXFoundation
 import WidgetKit
 import LyricsXWidgetShared
-import LyricsService
+import LyricsServiceAppleMusic
 
 @Loggable(subsystem: "com.JH.LyricsX.AppController", category: "AppController")
 final class AppController: NSObject {
