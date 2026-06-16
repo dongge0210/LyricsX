@@ -1,6 +1,6 @@
 import AppKit
 import LyricsXFoundation
-import LyricsServiceAppleMusic
+import LyricsService
 
 class PreferenceLabViewController: PreferenceViewController {
     @IBOutlet var enableTouchBarLyricsButton: NSButton!
