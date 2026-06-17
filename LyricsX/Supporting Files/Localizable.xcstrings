@@ -52,9 +52,6 @@
         }
       }
     },
-    "Apple Music Token (media-user-token):" : {
-      "comment" : "Label for the Apple Music media-user-token field in Lab preferences."
-    },
     "Download" : {
       "comment" : "title of download button on the update alert. Download new version of the app.",
       "extractionState" : "manual",
@@ -550,9 +547,6 @@
           }
         }
       }
-    },
-    "Paste your media-user-token" : {
-      "comment" : "Placeholder for Apple Music token field."
     },
     "Pause" : {
       "comment" : "Menu bar playback pause button",

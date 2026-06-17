@@ -1388,6 +1388,7 @@
     },
     "7Ax-7T-26K.title" : {
       "comment" : "Class = \"NSButtonCell\"; title = \"Automatically\"; ObjectID = \"7Ax-7T-26K\";",
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1816,6 +1817,7 @@
     },
     "8Sx-vb-5pB.title" : {
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Write lyrics to iTunes:\"; ObjectID = \"8Sx-vb-5pB\";",
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -2366,6 +2368,78 @@
         }
       }
     },
+    "AML-Fd-C01.placeholderString" : {
+      "comment" : "Class = \"NSTextFieldCell\"; placeholderString = \"zh-Hans, zh-hans-cn…, auto if empty\"; ObjectID = \"AML-Fd-C01\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "zh-Hans, zh-hans-cn…, auto if empty"
+          }
+        }
+      }
+    },
+    "AML-Lb-C01.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Language:\"; ObjectID = \"AML-Lb-C01\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Language:"
+          }
+        }
+      }
+    },
+    "AMS-Fd-C01.placeholderString" : {
+      "comment" : "Class = \"NSTextFieldCell\"; placeholderString = \"2-letter code (cn, us, jp…), auto if empty\"; ObjectID = \"AMS-Fd-C01\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "2-letter code (cn, us, jp…), auto if empty"
+          }
+        }
+      }
+    },
+    "AMS-Lb-C01.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Storefront:\"; ObjectID = \"AMS-Lb-C01\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Storefront:"
+          }
+        }
+      }
+    },
+    "AMT-Fd-C01.placeholderString" : {
+      "comment" : "Class = \"NSTextFieldCell\"; placeholderString = \"Paste your media-user-token\"; ObjectID = \"AMT-Fd-C01\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste your media-user-token"
+          }
+        }
+      }
+    },
+    "AMT-Lb-C01.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Apple Music Token:\"; ObjectID = \"AMT-Lb-C01\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Apple Music Token:"
+          }
+        }
+      }
+    },
     "ANR-Cl-001.title" : {
       "comment" : "Class = \"NSButtonCell\"; title = \"Recover original song and artist names via MusicKit (Apple Music only)\"; ObjectID = \"ANR-Cl-001\";",
       "localizations" : {
@@ -2718,6 +2792,7 @@
     },
     "bbd-ra-rSF.title" : {
       "comment" : "Class = \"NSButtonCell\"; title = \"Combine menubar icon with menubar lyrics\"; ObjectID = \"bbd-ra-rSF\";",
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -2932,6 +3007,7 @@
     },
     "bFk-1g-XeL.title" : {
       "comment" : "Class = \"NSViewController\"; title = \"Lab\"; ObjectID = \"bFk-1g-XeL\";",
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -3490,6 +3566,7 @@
     },
     "convertLRC-cell-scene1.title" : {
       "comment" : "Class = \"NSButtonCell\"; title = \"Convert to plain LRC (no karaoke)\"; ObjectID = \"convertLRC-cell-scene1\";",
+      "extractionState" : "stale",
       "localizations" : {
         "base" : {
           "stringUnit" : {
@@ -4363,6 +4440,7 @@
     },
     "g2u-8D-dln.title" : {
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Here are some experimental features that may not be stable enough, and may be removed in the future.\"; ObjectID = \"g2u-8D-dln\";",
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -4684,6 +4762,7 @@
     },
     "gGL-LB-TXI.title" : {
       "comment" : "Class = \"NSButtonCell\"; title = \"Enable Touch Bar lyrics\"; ObjectID = \"gGL-LB-TXI\";",
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -4791,6 +4870,7 @@
     },
     "gin-P2-gb5.title" : {
       "comment" : "Class = \"NSButtonCell\"; title = \"Use system wide now playing application\"; ObjectID = \"gin-P2-gb5\";",
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -5968,6 +6048,7 @@
     },
     "jFb-kX-VbY.title" : {
       "comment" : "Class = \"NSButtonCell\"; title = \"With translation\"; ObjectID = \"jFb-kX-VbY\";",
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -10667,6 +10748,7 @@
     },
     "ThQ-vA-Krb.title" : {
       "comment" : "Class = \"NSButtonCell\"; title = \"Automatically generate furigana for Japanese lyrics\"; ObjectID = \"ThQ-vA-Krb\";",
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -13777,6 +13859,7 @@
     },
     "zQK-i2-2Nc.title" : {
       "comment" : "Class = \"NSButtonCell\"; title = \"Customize TouchBar\"; ObjectID = \"zQK-i2-2Nc\";",
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {

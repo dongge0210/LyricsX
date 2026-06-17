@@ -13,10 +13,9 @@ class PreferenceLabViewController: PreferenceViewController {
 
     @IBOutlet var artworkSimilarityBoostButton: NSButton!
 
-    /// Created programmatically — not wired from the storyboard.
-    private var appleMusicMediaUserTokenField: NSTextField!
-    private var appleMusicStorefrontField: NSTextField!
-    private var appleMusicLanguageField: NSTextField!
+    @IBOutlet weak var appleMusicMediaUserTokenField: NSTextField!
+    @IBOutlet weak var appleMusicStorefrontField: NSTextField!
+    @IBOutlet weak var appleMusicLanguageField: NSTextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,128 +53,15 @@ class PreferenceLabViewController: PreferenceViewController {
             musixmatchTokenField.stringValue = ""
         }
 
-        setupAppleMusicTokenField()
-        setupAppleMusicStorefrontField()
-        setupAppleMusicLanguageField()
-    }
-
-    // MARK: - Apple Music media-user-token (programmatic)
-
-    private func setupAppleMusicTokenField() {
-        // Prevent duplicate rows when view is reloaded.
-        guard appleMusicMediaUserTokenField == nil else { return }
-
-        let gridHint = NSLocalizedString(
-            "Apple Music Token (media-user-token):",
-            comment: "Label for the Apple Music media-user-token field in Lab preferences."
-        )
-
-        // Find the NSGridView in the view hierarchy.
-        guard let grid = view.subviews.lazy.compactMap({ $0 as? NSGridView }).first else {
-            return
-        }
-
-        // Label row (matches grid's trailing-aligned column 1 style)
-        let label = NSTextField(labelWithString: gridHint)
-        label.alignment = .right
-        let labelRowIndex = grid.numberOfRows
-        grid.addRow(with: [label, NSView()])
-        let labelRow = grid.row(at: labelRowIndex)
-        labelRow.yPlacement = .center
-        labelRow.height = 22
-
-        // Token field row: single cell spanning both columns
-        let field = NSTextField()
-        field.placeholderString = NSLocalizedString(
-            "Paste your media-user-token",
-            comment: "Placeholder for Apple Music token field."
-        )
-        field.bezelStyle = .roundedBezel
-        field.target = self
-        field.action = #selector(appleMusicMediaUserTokenChanged(_:))
-
         if let token = defaults[.appleMusicMediaUserToken] {
-            field.stringValue = token
+            appleMusicMediaUserTokenField.stringValue = token
         }
-
-        let fieldRowIndex = grid.numberOfRows
-        grid.addRow(with: [field, NSView()])
-        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2),
-                        verticalRange: NSRange(location: fieldRowIndex, length: 1))
-        let fieldRow = grid.row(at: fieldRowIndex)
-        fieldRow.yPlacement = .center
-        fieldRow.height = 24
-        appleMusicMediaUserTokenField = field
-    }
-
-    private func setupAppleMusicStorefrontField() {
-        guard appleMusicStorefrontField == nil,
-              let grid = view.subviews.lazy.compactMap({ $0 as? NSGridView }).first else { return }
-
-        let label = NSTextField(labelWithString: NSLocalizedString(
-            "Storefront:",
-            comment: "Label for Apple Music storefront field."
-        ))
-        label.alignment = .right
-        let labelRowIndex = grid.numberOfRows
-        grid.addRow(with: [label, NSView()])
-        grid.row(at: labelRowIndex).yPlacement = .center
-        grid.row(at: labelRowIndex).height = 22
-
-        let field = NSTextField()
-        field.placeholderString = NSLocalizedString(
-            "2-letter code (cn, us, jp…), auto if empty",
-            comment: "Placeholder for storefront field."
-        )
-        field.bezelStyle = .roundedBezel
-        field.target = self
-        field.action = #selector(appleMusicStorefrontChanged(_:))
-        if let sf = defaults[.appleMusicStorefront], !sf.isEmpty {
-            field.stringValue = sf
+        if let sf = defaults[.appleMusicStorefront] {
+            appleMusicStorefrontField.stringValue = sf
         }
-
-        let fieldRowIndex = grid.numberOfRows
-        grid.addRow(with: [field, NSView()])
-        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2),
-                        verticalRange: NSRange(location: fieldRowIndex, length: 1))
-        grid.row(at: fieldRowIndex).yPlacement = .center
-        grid.row(at: fieldRowIndex).height = 24
-        appleMusicStorefrontField = field
-    }
-
-    private func setupAppleMusicLanguageField() {
-        guard appleMusicLanguageField == nil,
-              let grid = view.subviews.lazy.compactMap({ $0 as? NSGridView }).first else { return }
-
-        let label = NSTextField(labelWithString: NSLocalizedString(
-            "Language:",
-            comment: "Label for Apple Music language field."
-        ))
-        label.alignment = .right
-        let labelRowIndex = grid.numberOfRows
-        grid.addRow(with: [label, NSView()])
-        grid.row(at: labelRowIndex).yPlacement = .center
-        grid.row(at: labelRowIndex).height = 22
-
-        let field = NSTextField()
-        field.placeholderString = NSLocalizedString(
-            "zh-Hans, zh-hans-cn…, auto if empty",
-            comment: "Placeholder for language field."
-        )
-        field.bezelStyle = .roundedBezel
-        field.target = self
-        field.action = #selector(appleMusicLanguageChanged(_:))
-        if let lang = defaults[.appleMusicLanguage], !lang.isEmpty {
-            field.stringValue = lang
+        if let lang = defaults[.appleMusicLanguage] {
+            appleMusicLanguageField.stringValue = lang
         }
-
-        let fieldRowIndex = grid.numberOfRows
-        grid.addRow(with: [field, NSView()])
-        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2),
-                        verticalRange: NSRange(location: fieldRowIndex, length: 1))
-        grid.row(at: fieldRowIndex).yPlacement = .center
-        grid.row(at: fieldRowIndex).height = 24
-        appleMusicLanguageField = field
     }
 
     // MARK: - Musixmatch token
