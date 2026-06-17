@@ -6,7 +6,7 @@ import MusicPlayer
 import LyricsXFoundation
 import WidgetKit
 import LyricsXWidgetShared
-import LyricsServiceAppleMusic
+import LyricsService
 
 @Loggable(subsystem: "com.JH.LyricsX.AppController", category: "AppController")
 final class AppController: NSObject {
@@ -168,8 +168,17 @@ final class AppController: NSObject {
             // configured media-user-token (injected as a cookie before the
             // page loads, so the web player's MusicKit treats the session
             // as authenticated — no sign-in window needed).
-            if #available(macOS 12.0, *), let token = defaults[.appleMusicMediaUserToken], !token.isEmpty {
-                await AppleMusicWebSession.shared.configure(mediaUserToken: token)
+            if #available(macOS 12.0, *) {
+                if let token = defaults[.appleMusicMediaUserToken], !token.isEmpty {
+                    await AppleMusicWebSession.shared.configure(mediaUserToken: token)
+                }
+                // Restore storefront / language overrides (no API call needed).
+                if let sf = defaults[.appleMusicStorefront], !sf.isEmpty {
+                    AppleMusicWebSession.shared.storefrontOverride = sf
+                }
+                if let lang = defaults[.appleMusicLanguage], !lang.isEmpty {
+                    AppleMusicWebSession.shared.languageOverride = lang
+                }
             }
             await updateLyricsManager()
         }

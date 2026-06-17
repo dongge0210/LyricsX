@@ -182,6 +182,14 @@ extension UserDefaults.DefaultsKeys {
     // background WKWebView treats it as an authenticated user.
     static let appleMusicMediaUserToken = Key<String>("AppleMusicMediaUserToken")
 
+    // Apple Music — storefront override (2-letter country code, e.g. "cn", "us", "jp").
+    // When empty, auto-detected from the signed-in account via /v1/me/storefront.
+    static let appleMusicStorefront = Key<String>("AppleMusicStorefront")
+
+    // Apple Music — language override for TTML translations (e.g. "zh-Hans", "zh-hans-cn").
+    // When empty, uses the system's preferred language.
+    static let appleMusicLanguage = Key<String>("AppleMusicLanguage")
+
     // Apple Music Route B — recover a track's native-script name via the
     // Apple Music catalog so the third-party providers can match it.
     static let appleMusicNameRecoveryEnabled = Key<Bool>("AppleMusicNameRecoveryEnabled")

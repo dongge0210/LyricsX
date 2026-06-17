@@ -1,6 +1,6 @@
 import AppKit
 import LyricsXFoundation
-import LyricsServiceAppleMusic
+import LyricsService
 
 class PreferenceLabViewController: PreferenceViewController {
     @IBOutlet var enableTouchBarLyricsButton: NSButton!
@@ -15,6 +15,8 @@ class PreferenceLabViewController: PreferenceViewController {
 
     /// Created programmatically — not wired from the storyboard.
     private var appleMusicMediaUserTokenField: NSTextField!
+    private var appleMusicStorefrontField: NSTextField!
+    private var appleMusicLanguageField: NSTextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +55,8 @@ class PreferenceLabViewController: PreferenceViewController {
         }
 
         setupAppleMusicTokenField()
+        setupAppleMusicStorefrontField()
+        setupAppleMusicLanguageField()
     }
 
     // MARK: - Apple Music media-user-token (programmatic)
@@ -104,6 +108,76 @@ class PreferenceLabViewController: PreferenceViewController {
         appleMusicMediaUserTokenField = field
     }
 
+    private func setupAppleMusicStorefrontField() {
+        guard appleMusicStorefrontField == nil,
+              let grid = view.subviews.lazy.compactMap({ $0 as? NSGridView }).first else { return }
+
+        let label = NSTextField(labelWithString: NSLocalizedString(
+            "Storefront:",
+            comment: "Label for Apple Music storefront field."
+        ))
+        label.alignment = .right
+        let labelRowIndex = grid.numberOfRows
+        grid.addRow(with: [label, NSView()])
+        grid.row(at: labelRowIndex).yPlacement = .center
+        grid.row(at: labelRowIndex).height = 22
+
+        let field = NSTextField()
+        field.placeholderString = NSLocalizedString(
+            "2-letter code (cn, us, jp…), auto if empty",
+            comment: "Placeholder for storefront field."
+        )
+        field.bezelStyle = .roundedBezel
+        field.target = self
+        field.action = #selector(appleMusicStorefrontChanged(_:))
+        if let sf = defaults[.appleMusicStorefront], !sf.isEmpty {
+            field.stringValue = sf
+        }
+
+        let fieldRowIndex = grid.numberOfRows
+        grid.addRow(with: [field, NSView()])
+        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2),
+                        verticalRange: NSRange(location: fieldRowIndex, length: 1))
+        grid.row(at: fieldRowIndex).yPlacement = .center
+        grid.row(at: fieldRowIndex).height = 24
+        appleMusicStorefrontField = field
+    }
+
+    private func setupAppleMusicLanguageField() {
+        guard appleMusicLanguageField == nil,
+              let grid = view.subviews.lazy.compactMap({ $0 as? NSGridView }).first else { return }
+
+        let label = NSTextField(labelWithString: NSLocalizedString(
+            "Language:",
+            comment: "Label for Apple Music language field."
+        ))
+        label.alignment = .right
+        let labelRowIndex = grid.numberOfRows
+        grid.addRow(with: [label, NSView()])
+        grid.row(at: labelRowIndex).yPlacement = .center
+        grid.row(at: labelRowIndex).height = 22
+
+        let field = NSTextField()
+        field.placeholderString = NSLocalizedString(
+            "zh-Hans, zh-hans-cn…, auto if empty",
+            comment: "Placeholder for language field."
+        )
+        field.bezelStyle = .roundedBezel
+        field.target = self
+        field.action = #selector(appleMusicLanguageChanged(_:))
+        if let lang = defaults[.appleMusicLanguage], !lang.isEmpty {
+            field.stringValue = lang
+        }
+
+        let fieldRowIndex = grid.numberOfRows
+        grid.addRow(with: [field, NSView()])
+        grid.mergeCells(inHorizontalRange: NSRange(location: 0, length: 2),
+                        verticalRange: NSRange(location: fieldRowIndex, length: 1))
+        grid.row(at: fieldRowIndex).yPlacement = .center
+        grid.row(at: fieldRowIndex).height = 24
+        appleMusicLanguageField = field
+    }
+
     // MARK: - Musixmatch token
 
     @IBAction func musixmatchTokenChanged(_ sender: NSTextField) {
@@ -141,6 +215,26 @@ class PreferenceLabViewController: PreferenceViewController {
                     await AppController.shared.updateLyricsManager()
                 }
             }
+        }
+    }
+
+    // MARK: - Apple Music storefront / language
+
+    @IBAction func appleMusicStorefrontChanged(_ sender: NSTextField) {
+        let value = sender.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmed = value.isEmpty ? nil : value
+        defaults[.appleMusicStorefront] = trimmed
+        if #available(macOS 12.0, *) {
+            AppleMusicWebSession.shared.storefrontOverride = trimmed
+        }
+    }
+
+    @IBAction func appleMusicLanguageChanged(_ sender: NSTextField) {
+        let value = sender.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmed = value.isEmpty ? nil : value
+        defaults[.appleMusicLanguage] = trimmed
+        if #available(macOS 12.0, *) {
+            AppleMusicWebSession.shared.languageOverride = trimmed
         }
     }
 
